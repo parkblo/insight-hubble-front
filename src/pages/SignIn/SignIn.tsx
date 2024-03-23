@@ -26,7 +26,20 @@ function Copyright(props: any) {
 }
 
 // TODO remove, this demo shouldn't need to reset the theme.
-const defaultTheme = createTheme();
+const myTheme = createTheme({
+  typography: {
+    allVariants: {
+      fontFamily: 'Pretendard Variable',
+    },
+    h5 : {
+      fontSize: '1.0rem',
+      fontWeight: 'bold',
+    },
+    h6 : {
+      fontSize: '1.0rem',
+    },
+  }
+});
 
 export default function SignIn() {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -39,7 +52,7 @@ export default function SignIn() {
   };
 
   return (
-    <ThemeProvider theme={defaultTheme}>
+    <ThemeProvider theme={myTheme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -50,29 +63,37 @@ export default function SignIn() {
             alignItems: 'center',
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-            {/* <LockOutlinedIcon /> */}
-          </Avatar>
+          <img src="img/logo.png" alt="insight hubble" height={50}/>
+          <Box sx={{ margin: 2 }}></Box>
           <Typography component="h1" variant="h5">
-            로그인
+            지금 로그인하시고 모든 서비스를 이용해보세요
           </Typography>
+          <Box sx={{ margin: 2 }}></Box>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+          <Typography component="h1" variant="h6">
+            이메일
+          </Typography>
             <TextField
-              margin="normal"
+              margin="dense"
               required
               fullWidth
               id="email"
-              label="이메일"
+              // label="이메일"
               name="email"
               autoComplete="email"
               autoFocus
+              
             />
+            <Box sx={{ margin: 2 }}></Box>
+            <Typography component="h1" variant="h6">
+            비밀번호
+          </Typography>
             <TextField
-              margin="normal"
+              margin="dense"
               required
               fullWidth
               name="password"
-              label="비밀번호"
+              // label="비밀번호"
               type="password"
               id="password"
               autoComplete="current-password"
@@ -86,6 +107,7 @@ export default function SignIn() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+              style={{ backgroundColor: '#7059FF', borderRadius: '10px', }}
             >
               로그인
             </Button>
