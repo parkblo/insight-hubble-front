@@ -17,7 +17,7 @@ export default function Sidebar() {
     return (
         <Box sx={styles.container}>
             {/* logo */}
-            <ButtonLink to="/home">
+            <ButtonLink to="/">
                 <img src="img/logo.png" alt="insight hubble" style={styles.logo} />
             </ButtonLink>
 
