@@ -18,7 +18,7 @@ function App() {
           <Grid xs={2.5}>
             <Sidebar></Sidebar>
           </Grid>
-          <Grid xs={8.5}>
+          <Grid xs={8.5} sx={{marginLeft:"30px"}}>
             <Routes>
               <Route path="/signIn" element={<SignIn />} />
               <Route path="/" element={<Home />} />
