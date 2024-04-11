@@ -22,7 +22,9 @@ function SummaryList() {
                             <AssignmentIcon sx={styles.summary.itemIcon}/>
                         </Box>
                         <Box>
-                            <Typography sx={styles.summary.itemText}>최근 한달간 게시글<br></br>{dummyProfileData.total_questions}개 작성</Typography>
+                            <Typography sx={styles.summary.itemText}>
+                                최근 한달간 게시글<br></br>{dummyProfileData.total_questions}개 작성
+                            </Typography>
                         </Box>
                     </Paper>
                 </Grid>
@@ -32,7 +34,9 @@ function SummaryList() {
                             <TipsAndUpdatesIcon sx={styles.summary.itemIcon}/>
                         </Box>
                         <Box>
-                            <Typography sx={styles.summary.itemText}>내가 해결한 물음표<br></br>{dummyProfileData.total_completed_question}개</Typography>
+                            <Typography sx={styles.summary.itemText}>
+                                내가 해결한 물음표<br></br>{dummyProfileData.total_completed_question}개
+                            </Typography>
                         </Box>
                     </Paper>
                 </Grid>
@@ -42,7 +46,9 @@ function SummaryList() {
                             <QuestionMarkIcon sx={styles.summary.itemIcon}/>
                         </Box>
                         <Box>
-                            <Typography sx={styles.summary.itemText}>해결을 기다리는<br></br>나의 물음표는 {dummyProfileData.total_uncompleted_question}개</Typography>
+                            <Typography sx={styles.summary.itemText}>
+                                해결을 기다리는<br></br>나의 물음표는 {dummyProfileData.total_uncompleted_question}개
+                            </Typography>
                         </Box>
                     </Paper>
                 </Grid>
