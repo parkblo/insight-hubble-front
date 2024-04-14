@@ -7,6 +7,7 @@ const colors = {
   skyBlue: "#9EECFF",
   deepGray: "#5B5B5B",
   lightGray: "#D4D4D4",
+  softGray: "#F9F9F9",
 };
 
 export default colors;

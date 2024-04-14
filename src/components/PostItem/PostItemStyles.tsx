@@ -4,7 +4,7 @@ import colors from "constants/colors";
 const styles = {
   // Box
   container: {
-    width: "70%",
+    width: "100%",
     display: "flex",
     flexDirection: "column",
     marginBottom: "30px",
@@ -33,6 +33,7 @@ const styles = {
     },
   },
   postBox: {
+    backgroundColor: "white",
     border: `1px solid ${colors.lightGray}`,
     borderRadius: "20px",
     marginTop: "5px",
