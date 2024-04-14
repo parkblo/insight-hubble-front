@@ -7,7 +7,10 @@ import SignIn from "./pages/SignIn/SignIn";
 import Sidebar from "./components/Sidebar/Sidebar";
 import Home from "pages/Home/Home";
 import Discover from "pages/Discover/Discover";
-import MyMark from "pages/MyMark/MyMark";
+import MyMarkQuestion from "pages/MyMark/MyMarkQuestion";
+import MyMarkExclamation from "pages/MyMark/MyMarkExclamation";
+import MyMarkBookmark from "pages/MyMark/MyMarkBookmark";
+import MyMarkComment from "pages/MyMark/MyMarkComment";
 import Post from "pages/Post/Post";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
@@ -40,7 +43,13 @@ function App() {
                 <Route path="/signIn" element={<SignIn />} />
                 <Route path="/" element={<Home />} />
                 <Route path="/discover" element={<Discover />} />
-                <Route path="/mymark" element={<MyMark />} />
+                <Route path="/mymark/question" element={<MyMarkQuestion />} />
+                <Route
+                  path="/mymark/exclamation"
+                  element={<MyMarkExclamation />}
+                />
+                <Route path="/mymark/bookmark" element={<MyMarkBookmark />} />
+                <Route path="/mymark/comment" element={<MyMarkComment />} />
                 <Route path="/post" element={<Post />} />
               </Routes>
             </Grid>
