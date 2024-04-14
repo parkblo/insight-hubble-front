@@ -9,26 +9,44 @@ import Home from "pages/Home/Home";
 import Discover from "pages/Discover/Discover";
 import MyMark from "pages/MyMark/MyMark";
 import Post from "pages/Post/Post";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+
+const myTheme = createTheme({
+  typography: {
+    allVariants: {
+      fontFamily: "Pretendard Variable",
+    },
+    h5: {
+      fontSize: "1.0rem",
+      fontWeight: "bold",
+    },
+    h6: {
+      fontSize: "1.0rem",
+    },
+  },
+});
 
 function App() {
   return (
     <div className="App">
-      <BrowserRouter>
-        <Grid container>
-          <Grid xs={2.5}>
-            <Sidebar></Sidebar>
+      <ThemeProvider theme={myTheme}>
+        <BrowserRouter>
+          <Grid container>
+            <Grid xs={2.5}>
+              <Sidebar></Sidebar>
+            </Grid>
+            <Grid xs={8.5} sx={{ marginLeft: "30px" }}>
+              <Routes>
+                <Route path="/signIn" element={<SignIn />} />
+                <Route path="/" element={<Home />} />
+                <Route path="/discover" element={<Discover />} />
+                <Route path="/mymark" element={<MyMark />} />
+                <Route path="/post" element={<Post />} />
+              </Routes>
+            </Grid>
           </Grid>
-          <Grid xs={8.5} sx={{ marginLeft: "30px" }}>
-            <Routes>
-              <Route path="/signIn" element={<SignIn />} />
-              <Route path="/" element={<Home />} />
-              <Route path="/discover" element={<Discover />} />
-              <Route path="/mymark" element={<MyMark />} />
-              <Route path="/post" element={<Post />} />
-            </Routes>
-          </Grid>
-        </Grid>
-      </BrowserRouter>
+        </BrowserRouter>
+      </ThemeProvider>
     </div>
   );
 }
