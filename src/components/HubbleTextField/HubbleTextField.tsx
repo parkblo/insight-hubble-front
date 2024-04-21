@@ -1,7 +1,7 @@
 import React from "react";
-import { TextField } from "@mui/material";
+import { TextField, TextFieldProps } from "@mui/material";
 
-function HubbleTextField() {
+function HubbleTextField(props: TextFieldProps) {
   const style = {
     width: "100%",
     ".MuiOutlinedInput-root": {
@@ -11,7 +11,7 @@ function HubbleTextField() {
     },
   };
 
-  return <TextField sx={style} />;
+  return <TextField sx={style} {...props} />;
 }
 
 export default HubbleTextField;
