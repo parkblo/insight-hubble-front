@@ -1,20 +1,42 @@
 import { Button, ButtonProps } from "@mui/material";
 import colors from "constants/colors";
 
-function HubbleButton(props: ButtonProps) {
+interface HubbleButtonProps extends ButtonProps {
+  selected?: boolean;
+}
+
+function HubbleButton({ selected, ...props }: HubbleButtonProps) {
   const style = {
-    width: "100%",
-    height: "100%",
-    borderRadius: "30px",
-    backgroundColor: colors.purple,
-    opacity: "0.9",
-    "&:hover": {
+    default: {
+      width: "100%",
+      height: "100%",
+      borderRadius: "30px",
       backgroundColor: colors.purple,
+      opacity: "0.9",
+      "&:hover": {
+        backgroundColor: colors.purple,
+        opacity: "1",
+      },
+    },
+    unselected: {
+      width: "100%",
+      height: "100%",
+      borderRadius: "30px",
+      backgroundColor: "white",
+      color: "gray",
       opacity: "1",
+      "&:hover": {
+        backgroundColor: "white",
+        boxShadow: "10px",
+      },
     },
   };
 
-  return <Button sx={style} variant="contained" {...props} />;
+  if (selected === false) {
+    return <Button sx={style.unselected} variant="contained" {...props} />;
+  } else {
+    return <Button sx={style.default} variant="contained" {...props} />;
+  }
 }
 
 export default HubbleButton;
