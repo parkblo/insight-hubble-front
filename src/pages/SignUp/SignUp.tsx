@@ -3,6 +3,8 @@ import axios from "axios";
 
 import { Box, FormControlLabel, Typography } from "@mui/material";
 import Checkbox from "@mui/material/Checkbox";
+import Alert from "@mui/material/Alert";
+import { useNavigate } from "react-router-dom";
 
 import HubbleTextField from "components/HubbleTextField/HubbleTextField";
 import HubbleButton from "components/HubbleButton/HubbleButton";
@@ -11,12 +13,17 @@ import styles from "./SignUpStyles";
 
 function SignUp() {
   const [form, setForm] = useState({
-    email: "",
+    id: "",
     password: "",
     passwordCheck: "",
     username: "",
     checked: false,
   });
+  const [error, setError] = useState({
+    state: false,
+    message: "",
+  });
+  let navigate = useNavigate();
 
   const handleChange = (e: any) => {
     const { name, value, checked } = e.target;
@@ -27,7 +34,21 @@ function SignUp() {
   };
 
   const validateForm = () => {
-    // TODO: 유효성 검사 로직 작성
+    if (form.password !== form.passwordCheck) {
+      setError({
+        state: true,
+        message: "비밀번호가 일치하지 않습니다.",
+      });
+      return false;
+    }
+
+    if (form.checked === false) {
+      setError({
+        state: true,
+        message: "이용약관에 동의해주세요.",
+      });
+      return false;
+    }
     return true;
   };
 
@@ -37,18 +58,23 @@ function SignUp() {
     }
 
     const data = {
-      email: form.email,
+      username: form.id,
       password: form.password,
-      username: form.username,
+      name: form.username,
     };
 
     console.log(data); //test
 
     try {
-      const response = await axios.post("http://localhost:3000/signup", data);
-      // TODO: 회원 가입 성공 시 로직 작성
-    } catch (error) {
-      // TODO: 오류 처리 로직작성
+      const response = await axios.post("http://localhost:3000/join", data);
+      // 회원가입 성공 로직
+      alert("회원가입을 성공했습니다!");
+      navigate("/login");
+    } catch (error: any) {
+      setError({
+        state: true,
+        message: "서버와 통신 중 오류가 발생했습니다. 관리자에게 문의해주세요",
+      });
     }
   };
 
@@ -60,15 +86,11 @@ function SignUp() {
       {/* field */}
       <Box>
         <Box sx={styles.formLabel}>
-          <Typography>이메일</Typography>
+          <Typography>아이디</Typography>
           <Typography sx={styles.requiredLabel}>*</Typography>
         </Box>
         <Box sx={styles.textField}>
-          <HubbleTextField
-            name="email"
-            value={form.email}
-            onChange={handleChange}
-          />
+          <HubbleTextField name="id" value={form.id} onChange={handleChange} />
         </Box>
       </Box>
       {/* field */}
@@ -81,6 +103,7 @@ function SignUp() {
           <HubbleTextField
             name="password"
             value={form.password}
+            type="password"
             onChange={handleChange}
           />
         </Box>
@@ -94,6 +117,7 @@ function SignUp() {
         <Box sx={styles.textField}>
           <HubbleTextField
             name="passwordCheck"
+            type="password"
             value={form.passwordCheck}
             onChange={handleChange}
           />
@@ -125,6 +149,11 @@ function SignUp() {
           label="이용약관 개인정보 수집 및 정보 이용에 동의합니다."
         />
       </Box>
+      {error.state && (
+        <Alert severity="error" sx={{ marginBottom: "10px" }}>
+          {error.message}
+        </Alert>
+      )}
       <Box sx={styles.submitContainer}>
         <Box>
           <HubbleButton onClick={handleSubmit}>회원가입</HubbleButton>
