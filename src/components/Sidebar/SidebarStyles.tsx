@@ -9,6 +9,8 @@ export const ButtonLink = styled(Link)`
 
 export const styles = {
   container: {
+    position: "sticky",
+    top: "0px",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
