@@ -20,17 +20,13 @@ function Post() {
     title: "",
     content: "",
     source: "",
-    tags: [],
   });
 
   const handleChange = (e: any) => {
     const { name, value } = e.target;
     setForm({
       ...form,
-      [name]:
-        name === "tags"
-          ? value.split(",").map((tag: any) => tag.trim())
-          : value,
+      [name]: value,
     });
   };
 
@@ -45,17 +41,19 @@ function Post() {
     }
 
     const data = {
-      category: form.category,
-      isVisible: form.isVisible,
-      title: form.title,
-      content: form.content,
-      source: form.source,
-      tags: form.tags,
+      boardType: form.category,
+      boardSecure: form.isVisible,
+      boardTitle: form.title,
+      boardInsight: form.source,
+      boardContents: form.content,
     };
 
     console.log(data); // test
     try {
-      const response = await axios.post("http://localhost:3000/post", data);
+      const response = await axios.post(
+        "http://localhost:3000/board/save",
+        data
+      );
     } catch (error) {
       // TODO: 오류 처리 로직 작성
     }
@@ -142,17 +140,6 @@ function Post() {
         <HubbleTextField
           name="source"
           value={form.source}
-          onChange={handleChange}
-        />
-      </Box>
-      <CategoryTitle
-        title="#태그"
-        subTitle="쉼표로 구분해주세요. 예시) 물리학,천문학"
-      />
-      <Box>
-        <HubbleTextField
-          name="tags"
-          value={form.tags}
           onChange={handleChange}
         />
       </Box>
