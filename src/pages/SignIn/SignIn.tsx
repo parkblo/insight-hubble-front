@@ -1,123 +1,124 @@
-import * as React from "react";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
+import React, { useState } from "react";
+import axios from "axios";
+
+import { Box, FormControlLabel, Typography } from "@mui/material";
 import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import Alert from "@mui/material/Alert";
+import { Link, useNavigate } from "react-router-dom";
 
-// TODO remove, this demo shouldn't need to reset the theme.
-const myTheme = createTheme({
-  typography: {
-    allVariants: {
-      fontFamily: "Pretendard Variable",
-    },
-    h5: {
-      fontSize: "1.0rem",
-      fontWeight: "bold",
-    },
-    h6: {
-      fontSize: "1.0rem",
-    },
-  },
-});
+import HubbleTextField from "components/HubbleTextField/HubbleTextField";
+import HubbleButton from "components/HubbleButton/HubbleButton";
+import MenuTitle from "components/MenuTitle/MenuTitle";
+import styles from "./SignInStyles";
 
-export default function SignIn() {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
+function SignUp() {
+  const [form, setForm] = useState({
+    id: "",
+    password: "",
+  });
+  const [error, setError] = useState({
+    state: false,
+    message: "",
+  });
+  let navigate = useNavigate();
+
+  const handleChange = (e: any) => {
+    const { name, value, checked } = e.target;
+    setForm({
+      ...form,
+      [name]: name === "checked" ? checked : value,
     });
   };
 
+  const validateForm = () => {
+    return true;
+  };
+
+  const handleSubmit = async () => {
+    if (!validateForm()) {
+      return;
+    }
+
+    const data = {
+      username: form.id,
+      password: form.password,
+    };
+
+    console.log(data); //test
+
+    try {
+      const response = await axios.post("http://localhost:3000/login", data);
+      // 성공 로직
+      navigate("/");
+    } catch (error: any) {
+      // 실패 로직
+      if (error.response) {
+        setError({
+          state: true,
+          message: "로그인에 실패했습니다. 다시 시도해주세요.",
+        });
+      } else if (error.request) {
+        setError({
+          state: true,
+          message: "서버의 응답이 없습니다.",
+        });
+      } else {
+        setError({
+          state: true,
+          message: "알 수 없는 에러가 발생했습니다.",
+        });
+      }
+    }
+  };
+
   return (
-    <ThemeProvider theme={myTheme}>
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <Box
-          sx={{
-            marginTop: 8,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <img src="img/logo.png" alt="insight hubble" height={50} />
-          <Box sx={{ margin: 2 }}></Box>
-          <Typography component="h1" variant="h5">
-            지금 로그인하시고 모든 서비스를 이용해보세요
-          </Typography>
-          <Box sx={{ margin: 2 }}></Box>
-          <Box
-            component="form"
-            onSubmit={handleSubmit}
-            noValidate
-            sx={{ mt: 1 }}
-          >
-            <Typography component="h1" variant="h6">
-              이메일
-            </Typography>
-            <TextField
-              margin="dense"
-              required
-              fullWidth
-              id="email"
-              // label="이메일"
-              name="email"
-              autoComplete="email"
-              autoFocus
-            />
-            <Box sx={{ margin: 2 }}></Box>
-            <Typography component="h1" variant="h6">
-              비밀번호
-            </Typography>
-            <TextField
-              margin="dense"
-              required
-              fullWidth
-              name="password"
-              // label="비밀번호"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-            />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="로그인 유지"
-            />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-              style={{ backgroundColor: "#7059FF", borderRadius: "10px" }}
-            >
-              로그인
-            </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  비밀번호 찾기
-                </Link>
-              </Grid>
-              <Grid item>
-                <Link href="/SignUp" variant="body2">
-                  {"가입하기"}
-                </Link>
-              </Grid>
-            </Grid>
-          </Box>
+    <Box sx={styles.container}>
+      <Box sx={styles.menuTitle}>
+        <MenuTitle title="로그인" />
+      </Box>
+      {/* field */}
+      <Box>
+        <Box sx={styles.formLabel}>
+          <Typography>아이디</Typography>
+          <Typography sx={styles.requiredLabel}>*</Typography>
         </Box>
-        {/* <Copyright sx={{ mt: 8, mb: 4 }} /> */}
-      </Container>
-    </ThemeProvider>
+        <Box sx={styles.textField}>
+          <HubbleTextField name="id" value={form.id} onChange={handleChange} />
+        </Box>
+      </Box>
+      {/* field */}
+      <Box>
+        <Box sx={styles.formLabel}>
+          <Typography>비밀번호</Typography>
+          <Typography sx={styles.requiredLabel}>*</Typography>
+        </Box>
+        <Box sx={styles.textField}>
+          <HubbleTextField
+            name="password"
+            value={form.password}
+            type="password"
+            onChange={handleChange}
+          />
+        </Box>
+      </Box>
+      {error.state && (
+        <Alert severity="error" sx={{ marginBottom: "10px" }}>
+          {error.message}
+        </Alert>
+      )}
+      <Box sx={styles.submitContainer}>
+        <Link
+          to="/signup"
+          style={{ textDecoration: "none", marginRight: "15px" }}
+        >
+          회원가입
+        </Link>
+        <Box>
+          <HubbleButton onClick={handleSubmit}>로그인</HubbleButton>
+        </Box>
+      </Box>
+    </Box>
   );
 }
+
+export default SignUp;
