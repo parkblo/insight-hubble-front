@@ -9,16 +9,21 @@ import {
   MenuItem,
 } from "@mui/material";
 import styles from "./PostItemStyles";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 import PriorityHighIcon from "@mui/icons-material/PriorityHigh";
 import QuestionMarkIcon from "@mui/icons-material/QuestionMark";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
+import { isVisible } from "@testing-library/user-event/dist/utils";
 
 function PostHeader(postObject: any) {
   // 메뉴 관련 함수
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
+  let navigate = useNavigate();
+
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -26,12 +31,43 @@ function PostHeader(postObject: any) {
     setAnchorEl(null);
   };
 
+  const handleEdit = () => {
+    navigate("/post", {
+      state: {
+        post_id: postObject.item.post_id,
+        category: postObject.item.post_type,
+        isVisible: postObject.item.isVisible,
+        title: postObject.item.title,
+        content: postObject.item.content,
+        source: postObject.item.boardInsight,
+        editMode: true,
+      },
+    });
+  };
+  const handleDelete = () => {
+    let result = window.confirm(
+      `"${postObject.item.title}" 게시글을 정말 삭제하시겠습니까?`
+    );
+    if (result) {
+      axios
+        .delete(`/api/post/${postObject.item.post_id}`)
+        .then(() => {
+          window.alert("정상적으로 삭제되었습니다.");
+          window.location.reload();
+        })
+        .catch((error) => {
+          console.error(error);
+          window.alert("삭제 중 오류가 발생했습니다.");
+        });
+    }
+  };
+
   // 메뉴 컴포넌트
   const postMenu = (
     <Box>
       <IconButton
         id="post-menu-button"
-        aria-controls={open ? "post-menu" : undefined}
+        aria-controls={open ? postObject.item.post_id : undefined}
         aria-haspopup="true"
         aria-expanded={open ? "true" : undefined}
         onClick={handleClick}
@@ -39,7 +75,7 @@ function PostHeader(postObject: any) {
         <MoreVertIcon />
       </IconButton>
       <Menu
-        id="post-menu"
+        id="1"
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
@@ -47,8 +83,8 @@ function PostHeader(postObject: any) {
           "aria-labelledby": "post-menu-button",
         }}
       >
-        <MenuItem onClick={handleClose}>Menu1</MenuItem>
-        <MenuItem onClick={handleClose}>Menu2</MenuItem>
+        <MenuItem onClick={handleEdit}>수정</MenuItem>
+        <MenuItem onClick={handleDelete}>삭제</MenuItem>
       </Menu>
     </Box>
   );
