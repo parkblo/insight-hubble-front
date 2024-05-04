@@ -1,11 +1,13 @@
 import * as React from "react";
-import { Typography, Box, Button } from "@mui/material";
+import { Typography, Box } from "@mui/material";
 
 import styles from "./PostItemStyles";
 import PostHeader from "./PostHeader";
 import dummy from "dummydata/dummy.json";
-function PostItem() {
+function PostItem(postObject: any) {
   return (
+    // TO DO: postObject props에 실제 데이터 받아오기.
+
     <Box>
       {dummy.map((item: any) => (
         <Box sx={styles.container}>
