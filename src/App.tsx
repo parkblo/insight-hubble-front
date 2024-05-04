@@ -13,6 +13,7 @@ import MyMarkExclamation from "pages/MyMark/MyMarkExclamation";
 import MyMarkBookmark from "pages/MyMark/MyMarkBookmark";
 import MyMarkComment from "pages/MyMark/MyMarkComment";
 import Post from "pages/Post/Post";
+import PostView from "pages/PostView/PostView";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 const myTheme = createTheme({
@@ -46,6 +47,7 @@ function App() {
                 <Route path="/mymark/bookmark" element={<MyMarkBookmark />} />
                 <Route path="/mymark/comment" element={<MyMarkComment />} />
                 <Route path="/post" element={<Post />} />
+                <Route path="/view/:postid" element={<PostView />} />
               </Routes>
             </Grid>
           </Grid>
