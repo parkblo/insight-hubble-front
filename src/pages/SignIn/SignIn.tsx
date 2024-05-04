@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-import { Box, FormControlLabel, Typography } from "@mui/material";
-import Checkbox from "@mui/material/Checkbox";
+import { Box, Typography } from "@mui/material";
 import Alert from "@mui/material/Alert";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -23,10 +22,10 @@ function SignUp() {
   let navigate = useNavigate();
 
   const handleChange = (e: any) => {
-    const { name, value, checked } = e.target;
+    const { name, value } = e.target;
     setForm({
       ...form,
-      [name]: name === "checked" ? checked : value,
+      [name]: value,
     });
   };
 
