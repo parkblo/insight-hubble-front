@@ -1,8 +1,9 @@
 import { Button } from "@mui/material";
+import { ButtonProps } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import colors from "constants/colors";
 
-function SearchButton() {
+function SearchButton(props: ButtonProps) {
   const style = {
     width: "100%",
     height: "100%",
@@ -16,7 +17,7 @@ function SearchButton() {
   };
 
   return (
-    <Button sx={style} variant="contained">
+    <Button sx={style} variant="contained" {...props}>
       <SearchIcon />
     </Button>
   );
