@@ -1,7 +1,7 @@
 /* TODO : REMOVE : App.css와 겹치는 부분 */
 @font-face {
 	font-family: 'Pretendard Variable';
-	font-weight: 45 920;
+	font-weight: 100 300 900;
 	font-style: normal;
 	font-display: swap;
 	src: url('./assets/PretendardVariable.woff2') format('woff2-variations');
