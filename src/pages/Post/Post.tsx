@@ -1,12 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Box } from "@mui/material";
+import Alert from "@mui/material/Alert";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 import MenuTitle from "components/MenuTitle/MenuTitle";
 import CategoryTitle from "components/MenuTitle/CategoryTitle";
 import HubbleButton from "components/HubbleButton/HubbleButton";
 import styles from "./PostStyles";
 import HubbleTextField from "components/HubbleTextField/HubbleTextField";
+import { useLocation } from "react-router-dom";
 
 /*
 버튼을 누르면 상태 반영
@@ -21,6 +24,22 @@ function Post() {
     content: "",
     source: "",
   });
+  const [error, setError] = useState({
+    state: false,
+    message: "",
+  });
+  let navigate = useNavigate();
+  const { state } = useLocation();
+  console.log(state);
+
+  useEffect(() => {
+    if (state) {
+      setForm((prevForm) => ({
+        ...prevForm,
+        source: state.source,
+      }));
+    }
+  }, [state]);
 
   const handleChange = (e: any) => {
     const { name, value } = e.target;
@@ -31,7 +50,31 @@ function Post() {
   };
 
   const validateForm = () => {
-    // TODO 유효성 검사 로직 작성
+    if (form.category === "") {
+      setError({
+        state: true,
+        message: "게시글 종류를 선택해주세요.",
+      });
+      return false;
+    } else if (form.isVisible === "") {
+      setError({
+        state: true,
+        message: "공개 여부를 선택해주세요.",
+      });
+      return false;
+    } else if (form.title === "") {
+      setError({
+        state: true,
+        message: "제목을 입력해주세요.",
+      });
+      return false;
+    } else if (form.content === "") {
+      setError({
+        state: true,
+        message: "본문을 입력해주세요.",
+      });
+      return false;
+    }
     return true;
   };
 
@@ -54,8 +97,26 @@ function Post() {
         "http://localhost:3000/board/save",
         data
       );
-    } catch (error) {
-      // TODO: 오류 처리 로직 작성
+      // 성공 로직
+      navigate(`/mymark/${form.category}`);
+    } catch (error: any) {
+      // 실패 로직
+      if (error.response) {
+        setError({
+          state: true,
+          message: "게시글 작성에 실패했습니다. 다시 시도해주세요.",
+        });
+      } else if (error.request) {
+        setError({
+          state: true,
+          message: "서버의 응답이 없습니다.",
+        });
+      } else {
+        setError({
+          state: true,
+          message: "알 수 없는 에러가 발생했습니다.",
+        });
+      }
     }
   };
 
@@ -143,6 +204,11 @@ function Post() {
           onChange={handleChange}
         />
       </Box>
+      {error.state && (
+        <Alert severity="error" sx={{ marginTop: "20px" }}>
+          {error.message}
+        </Alert>
+      )}
       <Box sx={styles.postButtonContainer}>
         <Box sx={styles.postButton}>
           <HubbleButton onClick={handleSubmit}>게시글 작성</HubbleButton>
