@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import axios from "axios";
 
 import { Box, Typography } from "@mui/material";
@@ -9,6 +9,7 @@ import HubbleTextField from "components/HubbleTextField/HubbleTextField";
 import HubbleButton from "components/HubbleButton/HubbleButton";
 import MenuTitle from "components/MenuTitle/MenuTitle";
 import styles from "./SignInStyles";
+import { AuthContext } from "context/AuthContext";
 
 function SignUp() {
   const [form, setForm] = useState({
@@ -20,6 +21,7 @@ function SignUp() {
     message: "",
   });
   let navigate = useNavigate();
+  const { setAuth } = useContext(AuthContext);
 
   const handleChange = (e: any) => {
     const { name, value } = e.target;
@@ -43,11 +45,22 @@ function SignUp() {
       password: form.password,
     };
 
-    console.log(data); //test
+    // TODO : 테스트 후 삭제 ========
+    console.log(data);
+    const oneHourLater = new Date().getTime() + 1 * 60 * 1000; // 1분 후 만료
+
+    window.localStorage.setItem("auth", "true");
+    window.localStorage.setItem("token", "123");
+    window.localStorage.setItem("exp", oneHourLater.toString());
+    window.localStorage.setItem("username", form.id);
+
+    setAuth(true);
+    // ==============================
 
     try {
       const response = await axios.post("http://localhost:3000/login", data);
-      // 성공 로직
+      // TODO: 성공 로직 수정
+      setAuth(true);
       navigate("/");
     } catch (error: any) {
       // 실패 로직

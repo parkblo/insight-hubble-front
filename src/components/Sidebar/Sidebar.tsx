@@ -9,9 +9,12 @@ import { ButtonLink, styles } from "./SidebarStyles";
 import { menus } from "constants/menus";
 import SidebarItem from "./SidebarItem";
 import { Typography } from "@mui/material";
+import { AuthContext } from "context/AuthContext";
 
 export default function Sidebar() {
   const pathName = useLocation().pathname;
+  const { auth, setAuth } = React.useContext(AuthContext);
+  const currentUserName = window.localStorage.getItem("username");
 
   return (
     <Box sx={styles.container}>
@@ -24,10 +27,25 @@ export default function Sidebar() {
       <Box sx={styles.profile}>
         <Avatar sx={styles.avatar}></Avatar>
         <Box sx={styles.profileLabel}>
-          <Typography sx={{ fontSize: "0.9rem" }}>로그인 해주세요!</Typography>
-          <Link to="/SignIn" style={{ textDecoration: "none" }}>
-            <Typography sx={styles.signInLabel}>Sign In</Typography>
-          </Link>
+          <Typography sx={{ fontSize: "0.9rem" }}>
+            {auth ? `${currentUserName}님, 환영합니다!` : "로그인 해주세요!"}
+          </Typography>
+          {auth ? (
+            <Box
+              onClick={() => {
+                window.localStorage.clear();
+                window.localStorage.setItem("auth", "false");
+                setAuth(false);
+              }}
+              sx={{ cursor: "pointer", color: "blue" }}
+            >
+              Sign Out
+            </Box>
+          ) : (
+            <Link to="/SignIn" style={{ textDecoration: "none" }}>
+              <Typography sx={styles.signInLabel}>Sign In</Typography>
+            </Link>
+          )}
         </Box>
       </Box>
 
