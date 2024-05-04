@@ -28,6 +28,7 @@ function Post() {
     state: false,
     message: "",
   });
+  const [editMode, setEditMode] = useState(false);
   let navigate = useNavigate();
   const { state } = useLocation();
   console.log(state);
@@ -36,6 +37,10 @@ function Post() {
     if (state) {
       setForm((prevForm) => ({
         ...prevForm,
+        category: state.category,
+        isVisible: state.isVisible,
+        title: state.title,
+        content: state.content,
         source: state.source,
       }));
     }
@@ -92,30 +97,62 @@ function Post() {
     };
 
     console.log(data); // test
-    try {
-      const response = await axios.post(
-        "http://localhost:3000/board/save",
-        data
-      );
-      // 성공 로직
-      navigate(`/mymark/${form.category}`);
-    } catch (error: any) {
-      // 실패 로직
-      if (error.response) {
-        setError({
-          state: true,
-          message: "게시글 작성에 실패했습니다. 다시 시도해주세요.",
-        });
-      } else if (error.request) {
-        setError({
-          state: true,
-          message: "서버의 응답이 없습니다.",
-        });
-      } else {
-        setError({
-          state: true,
-          message: "알 수 없는 에러가 발생했습니다.",
-        });
+
+    if (!editMode) {
+      // 초기 게시글 작성일 경우
+      try {
+        const response = await axios.post(
+          "http://localhost:3000/board/save",
+          data
+        );
+        // 성공 로직
+        navigate(`/mymark/${form.category}`);
+      } catch (error: any) {
+        // 실패 로직
+        if (error.response) {
+          setError({
+            state: true,
+            message: "게시글 작성에 실패했습니다. 다시 시도해주세요.",
+          });
+        } else if (error.request) {
+          setError({
+            state: true,
+            message: "서버의 응답이 없습니다.",
+          });
+        } else {
+          setError({
+            state: true,
+            message: "알 수 없는 에러가 발생했습니다.",
+          });
+        }
+      }
+    } else {
+      // 수정 모드일 경우
+      try {
+        const response = await axios.put(
+          `http://localhost:3000/board/update/${state.post_id}`,
+          data
+        );
+        // 성공 로직
+        navigate(`/mymark/${form.category}`);
+      } catch (error: any) {
+        // 실패 로직
+        if (error.response) {
+          setError({
+            state: true,
+            message: "게시글 수정에 실패했습니다. 다시 시도해주세요.",
+          });
+        } else if (error.request) {
+          setError({
+            state: true,
+            message: "서버의 응답이 없습니다.",
+          });
+        } else {
+          setError({
+            state: true,
+            message: "알 수 없는 에러가 발생했습니다.",
+          });
+        }
       }
     }
   };
