@@ -71,6 +71,83 @@ const styles = {
   userId: {
     color: colors.gray,
   },
+  details: {
+    marginTop: "20px",
+    marginLeft: "17.5px",
+    paddingLeft: "25px",
+    borderLeft: `1.5px solid ${colors.blue}`,
+    date: {
+      color: colors.gray,
+      fontSize: "14px",
+    },
+    title: {
+      color: colors.purple,
+      fontSize: "24px",
+      fontWeight: "medium",
+    },
+    content: {
+      marginTop: "15px",
+      fontSize: "16px",
+      color: "black",
+    },
+    insight: {
+      marginTop: "15px",
+      fontSize: "16px",
+      color: colors.deepGray,
+    },
+  },
+  comment: {
+    marginTop: "20px",
+    addBox: {
+      display: "flex",
+      flexDirection: "row",
+      alignItems: "center",
+      opacity: "0.7",
+      "&:hover": {
+        opacity: "1",
+      },
+    },
+    exclaimation: {
+      backgroundColor: colors.pastelOrange,
+      width: "35px",
+      height: "35px",
+      marginRight: "10px",
+      borderRadius: "15px",
+    },
+    commentIcon: {
+      backgroundColor: colors.midnightBlue,
+      width: "35px",
+      height: "35px",
+      marginRight: "10px",
+      borderRadius: "15px",
+    },
+    add: {
+      backgroundColor: colors.skyBlue,
+      marginLeft: "25px",
+      marginTop: "-10px",
+      width: "15px",
+      height: "15px",
+      borderRadius: "15px",
+    },
+    addLabel: {
+      color: "black",
+      fontSize: "14px",
+    },
+    textField: {
+      marginLeft: "30px",
+      marginTop: "5px",
+    },
+    buttonContainer: {
+      display: "flex",
+      alignItems: "flex-end",
+      justifyContent: "flex-end",
+      width: "100%",
+    },
+    button: {
+      marginTop: "5px",
+      width: "100px",
+    },
+  },
 };
 
 export default styles;
