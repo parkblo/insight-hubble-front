@@ -20,6 +20,9 @@ import { isVisible } from "@testing-library/user-event/dist/utils";
 
 function PostHeader(postObject: any) {
   // 메뉴 관련 함수
+  const [bookmarkcnt, setBookmarkcnt] = React.useState(
+    postObject.item.bookmark_cnt
+  );
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   let navigate = useNavigate();
@@ -60,6 +63,17 @@ function PostHeader(postObject: any) {
           window.alert("삭제 중 오류가 발생했습니다.");
         });
     }
+  };
+
+  const handleBookmark = () => {
+    axios
+      .post(`/api/bookmark/?postId=${postObject.item.post_id}`)
+      .then(() => {
+        setBookmarkcnt(bookmarkcnt + 1);
+      })
+      .catch((error) => {
+        window.alert("북마크 중 오류가 발생했습니다.");
+      });
   };
 
   // 메뉴 컴포넌트
@@ -114,9 +128,8 @@ function PostHeader(postObject: any) {
         <Typography sx={styles.userId}>{postObject.item.user_id}</Typography>
       </Box>
       <Box sx={styles.header.options}>
-        <Button sx={styles.header.options.bookmark}>
-          <BookmarkIcon sx={{ fontSize: "20px" }} />{" "}
-          {postObject.item.bookmark_cnt}
+        <Button sx={styles.header.options.bookmark} onClick={handleBookmark}>
+          <BookmarkIcon sx={{ fontSize: "20px" }} /> {bookmarkcnt}
         </Button>
         {postMenu}
       </Box>
