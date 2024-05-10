@@ -20,7 +20,7 @@ function Home() {
 
   const getData = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/");
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}`);
       // 성공 로직
       console.log(response.data);
       setData({ state: true, ...response.data });

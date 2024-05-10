@@ -102,7 +102,7 @@ function Post() {
       // 초기 게시글 작성일 경우
       try {
         const response = await axios.post(
-          "http://localhost:3000/board/save",
+          `${process.env.REACT_APP_API_URL}/board/save`,
           data
         );
         // 성공 로직
@@ -130,7 +130,7 @@ function Post() {
       // 수정 모드일 경우
       try {
         const response = await axios.put(
-          `http://localhost:3000/board/update/${state.post_id}`,
+          `${process.env.REACT_APP_API_URL}/board/update/${state.post_id}`,
           data
         );
         // 성공 로직
