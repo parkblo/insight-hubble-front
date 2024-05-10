@@ -53,7 +53,9 @@ function PostHeader(postObject: any) {
     );
     if (result) {
       axios
-        .delete(`/api/post/${postObject.item.post_id}`)
+        .delete(
+          `${process.env.REACT_APP_API_URL}/post/${postObject.item.post_id}`
+        )
         .then(() => {
           window.alert("정상적으로 삭제되었습니다.");
           window.location.reload();
@@ -67,7 +69,9 @@ function PostHeader(postObject: any) {
 
   const handleBookmark = () => {
     axios
-      .post(`/api/bookmark/?postId=${postObject.item.post_id}`)
+      .post(
+        `${process.env.REACT_APP_API_URL}/bookmark/?postId=${postObject.item.post_id}`
+      )
       .then(() => {
         setBookmarkcnt(bookmarkcnt + 1);
       })

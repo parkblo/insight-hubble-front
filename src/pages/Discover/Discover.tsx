@@ -14,7 +14,9 @@ function Discover() {
 
   const getRecentPost = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/board");
+      const response = await axios.get(
+        `${process.env.REACT_APP_API_URL}/board`
+      );
       // 성공 로직
       setData({ state: "최근 게시글", ...response.data });
     } catch (error: any) {
@@ -24,7 +26,7 @@ function Discover() {
   };
   const getSearchPost = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/?"); //TODO: URL 변경
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/?`); //TODO: URL 변경
       // 성공 로직
       setData({ state: "검색 결과", ...response.data });
     } catch (error: any) {
@@ -39,7 +41,7 @@ function Discover() {
 
   const handleSubmit = (e: any) => {
     axios
-      .post("http://localhost:3000/?", searchString) // TODO: URL 변경
+      .post(`${process.env.REACT_APP_API_URL}/?`, searchString) // TODO: URL 변경
       .then((respone: any) => {
         getSearchPost();
       })

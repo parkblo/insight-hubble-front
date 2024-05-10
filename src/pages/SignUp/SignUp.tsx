@@ -66,7 +66,10 @@ function SignUp() {
     console.log(data); //test
 
     try {
-      const response = await axios.post("http://localhost:3000/join", data);
+      const response = await axios.post(
+        `${process.env.REACT_APP_API_URL}/join`,
+        data
+      );
       // 회원가입 성공 로직
       alert("회원가입을 성공했습니다!");
       navigate("/login");
