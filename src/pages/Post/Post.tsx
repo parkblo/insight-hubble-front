@@ -10,6 +10,7 @@ import HubbleButton from "components/HubbleButton/HubbleButton";
 import styles from "./PostStyles";
 import HubbleTextField from "components/HubbleTextField/HubbleTextField";
 import { useLocation } from "react-router-dom";
+import { editPost, postPost } from "api/api";
 
 /*
 버튼을 누르면 상태 반영
@@ -100,60 +101,14 @@ function Post() {
 
     if (!editMode) {
       // 초기 게시글 작성일 경우
-      try {
-        const response = await axios.post(
-          `${process.env.REACT_APP_API_URL}/board/save`,
-          data
-        );
-        // 성공 로직
+      postPost(data, setError).then(() => {
         navigate(`/mymark/${form.category}`);
-      } catch (error: any) {
-        // 실패 로직
-        if (error.response) {
-          setError({
-            state: true,
-            message: "게시글 작성에 실패했습니다. 다시 시도해주세요.",
-          });
-        } else if (error.request) {
-          setError({
-            state: true,
-            message: "서버의 응답이 없습니다.",
-          });
-        } else {
-          setError({
-            state: true,
-            message: "알 수 없는 에러가 발생했습니다.",
-          });
-        }
-      }
+      });
     } else {
       // 수정 모드일 경우
-      try {
-        const response = await axios.put(
-          `${process.env.REACT_APP_API_URL}/board/update/${state.post_id}`,
-          data
-        );
-        // 성공 로직
+      editPost(data, setError).then(() => {
         navigate(`/mymark/${form.category}`);
-      } catch (error: any) {
-        // 실패 로직
-        if (error.response) {
-          setError({
-            state: true,
-            message: "게시글 수정에 실패했습니다. 다시 시도해주세요.",
-          });
-        } else if (error.request) {
-          setError({
-            state: true,
-            message: "서버의 응답이 없습니다.",
-          });
-        } else {
-          setError({
-            state: true,
-            message: "알 수 없는 에러가 발생했습니다.",
-          });
-        }
-      }
+      });
     }
   };
 

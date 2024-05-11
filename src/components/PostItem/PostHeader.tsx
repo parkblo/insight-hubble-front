@@ -17,6 +17,7 @@ import QuestionMarkIcon from "@mui/icons-material/QuestionMark";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import { isVisible } from "@testing-library/user-event/dist/utils";
+import { addBookmark, deletePost } from "api/api";
 
 function PostHeader(postObject: any) {
   // 메뉴 관련 함수
@@ -47,37 +48,17 @@ function PostHeader(postObject: any) {
       },
     });
   };
-  const handleDelete = () => {
+  const handleDelete = async () => {
     let result = window.confirm(
       `"${postObject.item.title}" 게시글을 정말 삭제하시겠습니까?`
     );
     if (result) {
-      axios
-        .delete(
-          `${process.env.REACT_APP_API_URL}/post/${postObject.item.post_id}`
-        )
-        .then(() => {
-          window.alert("정상적으로 삭제되었습니다.");
-          window.location.reload();
-        })
-        .catch((error) => {
-          console.error(error);
-          window.alert("삭제 중 오류가 발생했습니다.");
-        });
+      const response = await deletePost(postObject);
     }
   };
 
-  const handleBookmark = () => {
-    axios
-      .post(
-        `${process.env.REACT_APP_API_URL}/bookmark/?postId=${postObject.item.post_id}`
-      )
-      .then(() => {
-        setBookmarkcnt(bookmarkcnt + 1);
-      })
-      .catch((error) => {
-        window.alert("북마크 중 오류가 발생했습니다.");
-      });
+  const handleBookmark = async () => {
+    const response = await addBookmark(postObject, setBookmarkcnt, bookmarkcnt);
   };
 
   // 메뉴 컴포넌트
