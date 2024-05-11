@@ -7,6 +7,7 @@ import CategoryTitle from "components/MenuTitle/CategoryTitle";
 import NotificationList from "components/HomeItem/NotificationList";
 import RemindList from "components/HomeItem/RemindList";
 import SummaryList from "components/HomeItem/SummaryList";
+import { getMainData } from "api/api";
 
 function Home() {
   const [data, setData] = React.useState({
@@ -18,20 +19,16 @@ function Home() {
     postsMoreThan30days: [],
   });
 
-  const getData = async () => {
-    try {
-      const response = await axios.get(`${process.env.REACT_APP_API_URL}`);
-      // 성공 로직
-      console.log(response.data);
-      setData({ state: true, ...response.data });
-    } catch (error: any) {
-      // 실패 로직
-      console.log(error);
-    }
-  };
-
   useEffect(() => {
-    getData();
+    async function fetchData() {
+      const response = await getMainData();
+      if (response) {
+        console.log(response.data); //test
+        setData({ state: true, ...response.data });
+      }
+    }
+
+    fetchData();
   }, []);
 
   return (

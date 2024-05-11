@@ -7,52 +7,29 @@ import CategoryTitle from "components/MenuTitle/CategoryTitle";
 import HubbleTextField from "components/HubbleTextField/HubbleTextField";
 import SearchButton from "components/SearchButton/SearchButton";
 import PostItem from "components/PostItem/PostItem";
+import { getRecentPost, getSearchPost } from "api/api";
 
 function Discover() {
   const [data, setData] = React.useState({ state: "", data: [] }); //TODO: 데이터 변경
   const [searchString, setSearchString] = React.useState("");
 
-  const getRecentPost = async () => {
-    try {
-      const response = await axios.get(
-        `${process.env.REACT_APP_API_URL}/board`
-      );
-      // 성공 로직
-      setData({ state: "최근 게시글", ...response.data });
-    } catch (error: any) {
-      // 실패 로직
-      console.log(error);
-    }
-  };
-  const getSearchPost = async () => {
-    try {
-      const response = await axios.get(`${process.env.REACT_APP_API_URL}/?`); //TODO: URL 변경
-      // 성공 로직
-      setData({ state: "검색 결과", ...response.data });
-    } catch (error: any) {
-      // 실패 로직
-      console.log(error);
-    }
-  };
-
   const handleChange = (e: any) => {
     setSearchString(e.target.value);
   };
 
-  const handleSubmit = (e: any) => {
-    axios
-      .post(`${process.env.REACT_APP_API_URL}/?`, searchString) // TODO: URL 변경
-      .then((respone: any) => {
-        getSearchPost();
-      })
-      .catch((error: any) => {
-        console.log(error);
-        alert("요청이 실패했습니다. 다시 시도해주세요.");
-      });
+  const handleSubmit = async (e: any) => {
+    const response = await getSearchPost(searchString);
   };
 
   React.useEffect(() => {
-    getRecentPost();
+    async function fetchRecentPost() {
+      const response = await getRecentPost();
+      if (response) {
+        setData({ state: "최근 게시글", data: response.data });
+      }
+    }
+
+    fetchRecentPost();
   }, []);
 
   return (

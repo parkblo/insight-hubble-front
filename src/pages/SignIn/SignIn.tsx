@@ -10,6 +10,7 @@ import HubbleButton from "components/HubbleButton/HubbleButton";
 import MenuTitle from "components/MenuTitle/MenuTitle";
 import styles from "./SignInStyles";
 import { AuthContext } from "context/AuthContext";
+import { signIn } from "api/api";
 
 function SignUp() {
   const [form, setForm] = useState({
@@ -57,33 +58,10 @@ function SignUp() {
     setAuth(true);
     // ==============================
 
-    try {
-      const response = await axios.post(
-        `${process.env.REACT_APP_API_URL}/login`,
-        data
-      );
-      // TODO: 성공 로직 수정
+    signIn(data, setError).then(() => {
       setAuth(true);
       navigate("/");
-    } catch (error: any) {
-      // 실패 로직
-      if (error.response) {
-        setError({
-          state: true,
-          message: "로그인에 실패했습니다. 다시 시도해주세요.",
-        });
-      } else if (error.request) {
-        setError({
-          state: true,
-          message: "서버의 응답이 없습니다.",
-        });
-      } else {
-        setError({
-          state: true,
-          message: "알 수 없는 에러가 발생했습니다.",
-        });
-      }
-    }
+    });
   };
 
   return (

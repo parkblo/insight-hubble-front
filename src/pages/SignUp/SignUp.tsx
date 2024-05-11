@@ -10,6 +10,7 @@ import HubbleTextField from "components/HubbleTextField/HubbleTextField";
 import HubbleButton from "components/HubbleButton/HubbleButton";
 import MenuTitle from "components/MenuTitle/MenuTitle";
 import styles from "./SignUpStyles";
+import { signUp } from "api/api";
 
 function SignUp() {
   const [form, setForm] = useState({
@@ -65,20 +66,10 @@ function SignUp() {
 
     console.log(data); //test
 
-    try {
-      const response = await axios.post(
-        `${process.env.REACT_APP_API_URL}/join`,
-        data
-      );
-      // 회원가입 성공 로직
+    signUp(data, setError).then(() => {
       alert("회원가입을 성공했습니다!");
       navigate("/login");
-    } catch (error: any) {
-      setError({
-        state: true,
-        message: "서버와 통신 중 오류가 발생했습니다. 관리자에게 문의해주세요",
-      });
-    }
+    });
   };
 
   return (
