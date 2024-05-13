@@ -8,7 +8,7 @@ import dummy from "dummydata/dummy.json";
 function PostView(props: any) {
   // data 가져오기
   const { postid } = useParams();
-  const post = dummy.find((item: any) => item.post_id == postid);
+  const post = dummy.find((item: any) => item.boardId == postid);
 
   return (
     <Box sx={styles.container}>

@@ -4,7 +4,6 @@ import styles from "./PostItemStyles";
 import PostHeader from "./PostHeader";
 import PostComment from "./PostComment";
 import PostExclamation from "./PostExclamation";
-import PostChildren from "./PostChildren";
 import { Link } from "react-router-dom";
 
 function formatDate(dateString: string) {
@@ -12,21 +11,23 @@ function formatDate(dateString: string) {
   return date.toLocaleDateString();
 }
 
-function PostDetails(postObject: any) {
+function PostChildren(postObject: any) {
   return (
-    <Box>
-      <PostHeader item={postObject.item} />
-      <Box sx={styles.details}>
-        <Typography sx={styles.details.date}>
+    <>
+      {postObject.item.child.map((childPost: any) => (
+        <Box>
+          <PostHeader item={childPost} />
+          <Box sx={styles.details}>
+            {/* <Typography sx={styles.details.date}>
           {formatDate(postObject.item.created_at)}
-        </Typography>
-        <Typography sx={styles.details.title}>
-          {postObject.item.boardTitle}
-        </Typography>
-        <Typography sx={styles.details.content}>
-          {postObject.item.boardContents}
-        </Typography>
-        {postObject.item.boardInsight ? (
+        </Typography> */}
+            <Typography sx={styles.details.title}>
+              {childPost.boardTitle}
+            </Typography>
+            <Typography sx={styles.details.content}>
+              {childPost.boardContents}
+            </Typography>
+            {/* {postObject.item.boardInsight ? (
           <Typography sx={styles.details.insight}>
             {"글의 영감: "}
             <Link
@@ -38,13 +39,12 @@ function PostDetails(postObject: any) {
           </Typography>
         ) : (
           <></>
-        )}
-      </Box>
-      <PostChildren item={postObject.item} />
-      <PostExclamation item={postObject.item} />
-      <PostComment item={postObject.item} />
-    </Box>
+        )} */}
+          </Box>
+        </Box>
+      ))}
+    </>
   );
 }
 
-export default PostDetails;
+export default PostChildren;

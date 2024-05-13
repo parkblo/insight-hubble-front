@@ -9,6 +9,7 @@ const styles = {
     marginBottom: "30px",
   },
   header: {
+    marginTop: "20px",
     display: "flex",
     justifyContent: "space-between",
     userProfile: {
@@ -89,6 +90,7 @@ const styles = {
       marginTop: "15px",
       fontSize: "16px",
       color: "black",
+      whiteSpace: "pre-wrap",
     },
     insight: {
       marginTop: "15px",
