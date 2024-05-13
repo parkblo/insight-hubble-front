@@ -8,7 +8,7 @@ axios.interceptors.request.use(
   (config) => {
     const userToken = window.localStorage.getItem("token");
 
-    config.headers["Authorization"] = `${userToken}`;
+    config.headers["Authorization"] = `Bearer ${userToken}`;
     return config;
   },
   (error) => {
