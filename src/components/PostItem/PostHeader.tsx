@@ -63,10 +63,7 @@ function PostHeader(postObject: any) {
         `"${postObject.item.boardContents}" 댓글을 정말 삭제하시겠습니까?`
       );
       if (result) {
-        deleteComment(postObject.item.boardId).then((response) => {
-          window.alert("댓글이 삭제되었습니다.");
-          window.location.reload();
-        });
+        deleteComment(postObject.item.boardId);
       }
       return;
     }
@@ -75,10 +72,7 @@ function PostHeader(postObject: any) {
       `"${postObject.item.boardTitle}" 게시글을 정말 삭제하시겠습니까?`
     );
     if (result) {
-      deletePost(postObject).then((response) => {
-        window.alert("게시글이 삭제되었습니다.");
-        window.location.reload();
-      });
+      deletePost(postObject);
     }
   };
 
