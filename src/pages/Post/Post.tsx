@@ -39,6 +39,7 @@ function Post() {
     if (state) {
       setForm((prevForm) => ({
         ...prevForm,
+        post_id: state.post_id,
         category: state.category,
         isVisible: state.isVisible,
         title: state.title,

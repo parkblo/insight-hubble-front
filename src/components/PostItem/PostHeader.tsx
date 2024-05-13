@@ -37,12 +37,12 @@ function PostHeader(postObject: any) {
   const handleEdit = () => {
     navigate("/post", {
       state: {
-        boardId: postObject.item.boardId,
-        boardType: postObject.item.boardType,
-        boardSecure: postObject.item.boardSecure,
-        boardTitle: postObject.item.boardTitle,
-        boardContents: postObject.item.boardContents,
-        boardInsight: postObject.item.boardInsight,
+        post_id: postObject.item.boardId,
+        category: postObject.item.boardType,
+        isVisible: postObject.item.boardSecure,
+        title: postObject.item.boardTitle,
+        content: postObject.item.boardContents,
+        source: postObject.item.boardInsight,
         editMode: true,
       },
     });
