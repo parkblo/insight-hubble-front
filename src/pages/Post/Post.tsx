@@ -36,6 +36,14 @@ function Post() {
   console.log(state);
 
   useEffect(() => {
+    if (window.localStorage.getItem("auth") === "false") {
+      alert("게시글 작성 전에 먼저 로그인해주세요!");
+      navigate("/signin");
+      return;
+    }
+  }, []);
+
+  useEffect(() => {
     if (state) {
       setForm((prevForm) => ({
         ...prevForm,
@@ -101,6 +109,7 @@ function Post() {
       boardTitle: form.title,
       boardInsight: form.source,
       boardContents: form.content,
+      boardParentId: form.boardParentId,
     };
 
     console.log(data); // test
