@@ -20,13 +20,15 @@ function PostItem(postObject: any) {
           <PostHeader item={item} />
           <Link
             style={nonstyle}
-            to={`/view/${item.post_id}`}
-            key={item.post_id}
+            to={`/view/${item.boardId}`}
+            key={item.boardId}
           >
             <Box sx={styles.postBox}>
-              <Typography sx={styles.postBox.title}>{item.title}</Typography>
+              <Typography sx={styles.postBox.title}>
+                {item.boardTitle}
+              </Typography>
               <Typography sx={styles.postBox.content}>
-                {item.content}
+                {item.boardContents}
               </Typography>
             </Box>
           </Link>

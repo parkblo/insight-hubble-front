@@ -10,7 +10,7 @@ import PostItem from "components/PostItem/PostItem";
 import { getRecentPost, getSearchPost } from "api/api";
 
 function Discover() {
-  const [data, setData] = React.useState({ state: "", data: [] }); //TODO: 데이터 변경
+  const [data, setData] = React.useState({ state: "", data: {} }); //TODO: 데이터 변경
   const [searchString, setSearchString] = React.useState("");
 
   const handleChange = (e: any) => {
@@ -19,6 +19,9 @@ function Discover() {
 
   const handleSubmit = async (e: any) => {
     const response = await getSearchPost(searchString);
+    if (response) {
+      setData({ state: "검색 결과", data: response.data });
+    }
   };
 
   React.useEffect(() => {

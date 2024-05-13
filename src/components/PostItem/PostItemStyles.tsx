@@ -9,7 +9,6 @@ const styles = {
     marginBottom: "30px",
   },
   header: {
-    marginTop: "20px",
     display: "flex",
     justifyContent: "space-between",
     userProfile: {
@@ -75,6 +74,7 @@ const styles = {
   details: {
     marginTop: "20px",
     marginLeft: "17.5px",
+    marginBottom: "20px",
     paddingLeft: "25px",
     borderLeft: `1.5px solid ${colors.blue}`,
     date: {
@@ -149,6 +149,9 @@ const styles = {
       marginTop: "5px",
       width: "100px",
     },
+  },
+  viewContainer: {
+    marginBottom: "20px",
   },
 };
 

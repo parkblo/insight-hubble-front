@@ -15,7 +15,7 @@ function PostChildren(postObject: any) {
   return (
     <>
       {postObject.item.child.map((childPost: any) => (
-        <Box>
+        <Box sx={styles.viewContainer}>
           <PostHeader item={childPost} />
           <Box sx={styles.details}>
             {/* <Typography sx={styles.details.date}>
