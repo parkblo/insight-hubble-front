@@ -16,13 +16,12 @@ import PriorityHighIcon from "@mui/icons-material/PriorityHigh";
 import QuestionMarkIcon from "@mui/icons-material/QuestionMark";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
-import { isVisible } from "@testing-library/user-event/dist/utils";
 import { addBookmark, deletePost } from "api/api";
 
 function PostHeader(postObject: any) {
   // 메뉴 관련 함수
   const [bookmarkcnt, setBookmarkcnt] = React.useState(
-    postObject.item.bookmark_cnt
+    postObject.item.bookmarkCount
   );
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -38,19 +37,19 @@ function PostHeader(postObject: any) {
   const handleEdit = () => {
     navigate("/post", {
       state: {
-        post_id: postObject.item.post_id,
-        category: postObject.item.post_type,
-        isVisible: postObject.item.isVisible,
-        title: postObject.item.title,
-        content: postObject.item.content,
-        source: postObject.item.boardInsight,
+        boardId: postObject.item.boardId,
+        boardType: postObject.item.boardType,
+        boardSecure: postObject.item.boardSecure,
+        boardTitle: postObject.item.boardTitle,
+        boardContents: postObject.item.boardContents,
+        boardInsight: postObject.item.boardInsight,
         editMode: true,
       },
     });
   };
   const handleDelete = async () => {
     let result = window.confirm(
-      `"${postObject.item.title}" 게시글을 정말 삭제하시겠습니까?`
+      `"${postObject.item.boardTitle}" 게시글을 정말 삭제하시겠습니까?`
     );
     if (result) {
       const response = await deletePost(postObject);
@@ -66,7 +65,7 @@ function PostHeader(postObject: any) {
     <Box>
       <IconButton
         id="post-menu-button"
-        aria-controls={open ? postObject.item.post_id : undefined}
+        aria-controls={open ? postObject.item.boardId : undefined}
         aria-haspopup="true"
         aria-expanded={open ? "true" : undefined}
         onClick={handleClick}
@@ -119,12 +118,15 @@ function PostHeader(postObject: any) {
   return (
     <Box sx={styles.header}>
       <Box sx={styles.header.userProfile}>
-        {postObject.item.post_type === "question" ? question : null}
-        {postObject.item.post_type === "exclamation" ? exclamation : null}
+        {postObject.item.boardType === "question" ? question : null}
+        {postObject.item.boardType === "exclamation" ? exclamation : null}
         <Typography sx={styles.userName}>
           {postObject.item.user_name}
+          {/* TODO: 유저명 표시는 어떡해 */}
         </Typography>
-        <Typography sx={styles.userId}>@{postObject.item.user_id}</Typography>
+        <Typography sx={styles.userId}>
+          @{postObject.item.boardWriter}
+        </Typography>
       </Box>
       <Box sx={styles.header.options}>
         <Button sx={styles.header.options.bookmark} onClick={handleBookmark}>
