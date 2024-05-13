@@ -82,8 +82,22 @@ function PostHeader(postObject: any) {
           "aria-labelledby": "post-menu-button",
         }}
       >
-        <MenuItem onClick={handleEdit}>수정</MenuItem>
-        <MenuItem onClick={handleDelete}>삭제</MenuItem>
+        <MenuItem
+          onClick={handleEdit}
+          disabled={
+            postObject.item.boardWriter !== localStorage.getItem("username")
+          }
+        >
+          수정
+        </MenuItem>
+        <MenuItem
+          onClick={handleDelete}
+          disabled={
+            postObject.item.boardWriter !== localStorage.getItem("username")
+          }
+        >
+          삭제
+        </MenuItem>
       </Menu>
     </Box>
   );

@@ -34,6 +34,23 @@ export async function addBookmark(
   return response;
 }
 
+export async function deleteBookmark(
+  postObject: any,
+  setBookmarkcnt: any,
+  bookmarkcnt: any
+) {
+  const response = await axios
+    .delete(`/bookmark/?postId=${postObject.item.post_id}`)
+    .then(() => {
+      setBookmarkcnt(bookmarkcnt - 1);
+    })
+    .catch((error) => {
+      window.alert("북마크 중 오류가 발생했습니다.");
+    });
+
+  return response;
+}
+
 // 게시글 조회 ============================================================================================================
 export async function getRecentPost() {
   const response = await axios.get("/board").catch((error) => {
