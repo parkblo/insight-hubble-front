@@ -23,7 +23,7 @@ export async function addBookmark(
   bookmarkcnt: any
 ) {
   const response = await axios
-    .post(`/bookmark/?postId=${postObject.item.post_id}`)
+    .post(`/bookmark/?bookmarkId=${postObject.item.post_id}`)
     .then(() => {
       setBookmarkcnt(bookmarkcnt + 1);
     })
@@ -146,6 +146,10 @@ export async function editComment(data: any) {
 export async function deleteComment(commentId: number) {
   const response = await axios
     .delete(`/comment/${commentId}`)
+    .then(() => {
+      window.alert("댓글이 삭제되었습니다.");
+      window.location.reload();
+    })
     .catch((error) => {
       window.alert("댓글 삭제 중 오류가 발생했습니다.");
     });
