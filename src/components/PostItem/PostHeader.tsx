@@ -124,7 +124,7 @@ function PostHeader(postObject: any) {
         <Typography sx={styles.userName}>
           {postObject.item.user_name}
         </Typography>
-        <Typography sx={styles.userId}>{postObject.item.user_id}</Typography>
+        <Typography sx={styles.userId}>@{postObject.item.user_id}</Typography>
       </Box>
       <Box sx={styles.header.options}>
         <Button sx={styles.header.options.bookmark} onClick={handleBookmark}>
