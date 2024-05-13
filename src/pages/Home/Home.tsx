@@ -32,6 +32,7 @@ function Home() {
   }, []);
 
   return (
+    // TODO: 실제 fetch 받은 데이터 넘겨주기
     <Box>
       <MenuTitle title="Home" />
       <CategoryTitle title="나의 활동 정리" />
