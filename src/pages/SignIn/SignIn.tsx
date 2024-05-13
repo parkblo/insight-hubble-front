@@ -48,7 +48,7 @@ function SignUp() {
 
     // TODO : 테스트 후 삭제 ========
     console.log(data);
-    const oneHourLater = new Date().getTime() + 1 * 60 * 1000; // 1분 후 만료
+    const oneHourLater = new Date().getTime() + 58 * 60 * 1000; // 58분 후 만료
 
     window.localStorage.setItem("auth", "true");
     window.localStorage.setItem("token", "123");

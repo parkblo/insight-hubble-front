@@ -14,6 +14,7 @@ import MyMarkBookmark from "pages/MyMark/MyMarkBookmark";
 import MyMarkComment from "pages/MyMark/MyMarkComment";
 import Post from "pages/Post/Post";
 import PostView from "pages/PostView/PostView";
+import EditComment from "pages/Post/EditComment";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { AuthContext } from "context/AuthContext";
 
@@ -71,6 +72,7 @@ function App() {
                   <Route path="/mymark/comment" element={<MyMarkComment />} />
                   <Route path="/post" element={<Post />} />
                   <Route path="/view/:postid" element={<PostView />} />
+                  <Route path="/edit/" element={<EditComment />} />
                 </Routes>
               </Grid>
             </Grid>

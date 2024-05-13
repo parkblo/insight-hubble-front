@@ -18,6 +18,10 @@ const styles = {
     width: "400px",
     height: "50px",
   },
+  editButton: {
+    width: "100px",
+    height: "50px",
+  },
 };
 
 export default styles;
