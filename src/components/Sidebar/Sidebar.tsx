@@ -16,6 +16,12 @@ export default function Sidebar() {
   const { auth, setAuth } = React.useContext(AuthContext);
   const currentUserName = window.localStorage.getItem("username");
 
+  React.useEffect(() => {
+    if (window.localStorage.getItem("auth") === "true") {
+      setAuth(true);
+    }
+  });
+
   return (
     <Box sx={styles.container}>
       {/* logo */}
