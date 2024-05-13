@@ -4,6 +4,7 @@ import styles from "./PostItemStyles";
 import PostHeader from "./PostHeader";
 import PostComment from "./PostComment";
 import PostExclamation from "./PostExclamation";
+import { Link } from "react-router-dom";
 
 function formatDate(dateString: string) {
   const date = new Date(dateString);
@@ -24,10 +25,19 @@ function PostDetails(postObject: any) {
         <Typography sx={styles.details.content}>
           {postObject.item.content}
         </Typography>
-        <Typography sx={styles.details.insight}>
-          글의 영감 :{"\u00a0"}
-          {postObject.item.boardInsight || "-"}
-        </Typography>
+        {postObject.item.boardInsight ? (
+          <Typography sx={styles.details.insight}>
+            {"글의 영감: "}
+            <Link
+              to={`/view/${postObject.item.boardParentId}`}
+              style={{ color: "inherit" }}
+            >
+              {postObject.item.boardInsight}
+            </Link>
+          </Typography>
+        ) : (
+          <></>
+        )}
       </Box>
       {/* TODO: 추가적으로 이미 존재하는 코멘트 추가 필요 */}
       <PostExclamation item={postObject.item} />

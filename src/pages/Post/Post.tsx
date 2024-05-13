@@ -24,6 +24,7 @@ function Post() {
     title: "",
     content: "",
     source: "",
+    boardParentId: -1,
   });
   const [error, setError] = useState({
     state: false,
@@ -43,12 +44,16 @@ function Post() {
         title: state.title,
         content: state.content,
         source: state.source,
+        boardParentId: state.boardParentId,
       }));
     }
   }, [state]);
 
   const handleChange = (e: any) => {
     const { name, value } = e.target;
+    if (name === "source" && form.boardParentId !== -1) {
+      return;
+    }
     setForm({
       ...form,
       [name]: value,
