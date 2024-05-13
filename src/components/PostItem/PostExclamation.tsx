@@ -22,7 +22,12 @@ function PostExclamation(postObject: any) {
   let navigate = useNavigate();
 
   const handleClick = () => {
-    navigate("/post", { state: { source: postObject.item.title } }); // TODO: 상태 전달 수정
+    navigate("/post", {
+      state: {
+        source: postObject.item.title,
+        boardParentId: postObject.item.boardParentId,
+      },
+    }); // TODO: 상태 전달 수정
   };
 
   return (
