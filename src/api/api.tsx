@@ -53,7 +53,7 @@ export async function deleteBookmark(
 
 // 게시글 조회 ============================================================================================================
 export async function getRecentPost() {
-  const response = await axios.get("/board").catch((error) => {
+  const response = await axios.get("/discover/paging").catch((error) => {
     console.log(error);
   });
   return response;
@@ -61,9 +61,11 @@ export async function getRecentPost() {
 
 // TODO: 미개발 API, 수정 필요
 export async function getSearchPost(searchString: string) {
-  const response = await axios.get(`/?${searchString}`).catch((error) => {
-    console.log(error);
-  });
+  const response = await axios
+    .get(`/discover/paging?keyword=${searchString}&page=1`)
+    .catch((error) => {
+      console.log(error);
+    });
   return response;
 }
 
