@@ -16,7 +16,8 @@ import PriorityHighIcon from "@mui/icons-material/PriorityHigh";
 import QuestionMarkIcon from "@mui/icons-material/QuestionMark";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
-import { addBookmark, deletePost } from "api/api";
+import ChatBubbleIcon from "@mui/icons-material/ChatBubble";
+import { addBookmark, deleteComment, deletePost } from "api/api";
 
 function PostHeader(postObject: any) {
   // 메뉴 관련 함수
@@ -35,29 +36,54 @@ function PostHeader(postObject: any) {
   };
 
   const handleEdit = () => {
-    navigate("/post", {
-      state: {
-        post_id: postObject.item.boardId,
-        category: postObject.item.boardType,
-        isVisible: postObject.item.boardSecure,
-        title: postObject.item.boardTitle,
-        content: postObject.item.boardContents,
-        source: postObject.item.boardInsight,
-        editMode: true,
-      },
-    });
+    if (postObject.item.boardType === "comment") {
+      navigate("/edit", {
+        state: {
+          comment_id: postObject.item.boardId,
+          content: postObject.item.boardContents,
+        },
+      });
+    } else {
+      navigate("/post", {
+        state: {
+          post_id: postObject.item.boardId,
+          category: postObject.item.boardType,
+          isVisible: postObject.item.boardSecure,
+          title: postObject.item.boardTitle,
+          content: postObject.item.boardContents,
+          source: postObject.item.boardInsight,
+          editMode: true,
+        },
+      });
+    }
   };
   const handleDelete = async () => {
+    if (postObject.item.boardType === "comment") {
+      let result = window.confirm(
+        `"${postObject.item.boardContents}" 댓글을 정말 삭제하시겠습니까?`
+      );
+      if (result) {
+        deleteComment(postObject.item.boardId).then((response) => {
+          window.alert("댓글이 삭제되었습니다.");
+          window.location.reload();
+        });
+      }
+      return;
+    }
+
     let result = window.confirm(
       `"${postObject.item.boardTitle}" 게시글을 정말 삭제하시겠습니까?`
     );
     if (result) {
-      const response = await deletePost(postObject);
+      deletePost(postObject).then((response) => {
+        window.alert("게시글이 삭제되었습니다.");
+        window.location.reload();
+      });
     }
   };
 
   const handleBookmark = async () => {
-    const response = await addBookmark(postObject, setBookmarkcnt, bookmarkcnt);
+    addBookmark(postObject, setBookmarkcnt, bookmarkcnt);
   };
 
   // 메뉴 컴포넌트
@@ -84,7 +110,7 @@ function PostHeader(postObject: any) {
         <MenuItem
           onClick={handleEdit}
           disabled={
-            postObject.item.boardWriter !== localStorage.getItem("username")
+            postObject.item.boardWriterId !== localStorage.getItem("username")
           }
         >
           수정
@@ -92,7 +118,7 @@ function PostHeader(postObject: any) {
         <MenuItem
           onClick={handleDelete}
           disabled={
-            postObject.item.boardWriter !== localStorage.getItem("username")
+            postObject.item.boardWriterId !== localStorage.getItem("username")
           }
         >
           삭제
@@ -115,23 +141,33 @@ function PostHeader(postObject: any) {
     </Avatar>
   );
 
+  // 댓글 컴포넌트
+  const comment = (
+    <Avatar sx={styles.commentAvatar}>
+      <ChatBubbleIcon />
+    </Avatar>
+  );
+
   return (
     <Box sx={styles.header}>
       <Box sx={styles.header.userProfile}>
         {postObject.item.boardType === "question" ? question : null}
         {postObject.item.boardType === "exclamation" ? exclamation : null}
+        {postObject.item.boardType === "comment" ? comment : null}
         <Typography sx={styles.userName}>
-          {postObject.item.user_name}
+          {postObject.item.boardWriterNickname}
           {/* TODO: 유저명 표시는 어떡해 */}
         </Typography>
         <Typography sx={styles.userId}>
-          @{postObject.item.boardWriter}
+          @{postObject.item.boardWriterId}
         </Typography>
       </Box>
       <Box sx={styles.header.options}>
-        <Button sx={styles.header.options.bookmark} onClick={handleBookmark}>
-          <BookmarkIcon sx={{ fontSize: "20px" }} /> {bookmarkcnt}
-        </Button>
+        {postObject.item.boardType === "comment" ? null : (
+          <Button sx={styles.header.options.bookmark} onClick={handleBookmark}>
+            <BookmarkIcon sx={{ fontSize: "20px" }} /> {bookmarkcnt}
+          </Button>
+        )}
         {postMenu}
       </Box>
     </Box>

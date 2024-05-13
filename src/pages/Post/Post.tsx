@@ -19,6 +19,7 @@ import { editPost, postPost } from "api/api";
 
 function Post() {
   const [form, setForm] = useState({
+    post_id: "",
     category: "",
     isVisible: "",
     title: "",
@@ -104,6 +105,7 @@ function Post() {
     }
 
     const data = {
+      post_id: form.post_id,
       boardType: form.category,
       boardSecure: form.isVisible,
       boardTitle: form.title,

@@ -6,6 +6,7 @@ import AddIcon from "@mui/icons-material/Add";
 import HubbleTextField from "components/HubbleTextField/HubbleTextField";
 import HubbleButton from "components/HubbleButton/HubbleButton";
 import styles from "./PostItemStyles";
+import { postComment } from "api/api";
 
 function PostComment(postObject: any) {
   const [addMode, setAddMode] = useState(false);
@@ -36,8 +37,15 @@ function PostComment(postObject: any) {
   };
 
   const handleSubmit = () => {
-    console.log(comment);
-    setComment("");
+    const data = {
+      boardId: postObject.postObject.boardId,
+      content: comment,
+    };
+
+    postComment(data).then((response) => {
+      window.alert("댓글이 등록되었습니다.");
+      window.location.reload();
+    });
   };
 
   return (

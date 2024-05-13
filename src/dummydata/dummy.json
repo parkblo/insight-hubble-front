@@ -2,8 +2,8 @@
   {
     "boardId": 1,
     "boardType": "question",
-    "boardUsername": "카타르시스",
-    "boardWriter": "pitachu0410",
+    "boardWriterNickname": "카타르시스",
+    "boardWriterId": "pitachu0410",
     "created_at" : "2024-04-01T00:00:00Z",
     "bookmarkCount": 172,
     "boardTitle": "우주에 대한 궁금증이 있어요",
@@ -14,8 +14,8 @@
     "child" : [
       {
         "boardId":10,
-        "boardWriter":"qwer1234",
-        "writerNickname":"밤하늘의펄",
+        "boardWriterId":"qwer1234",
+        "boardWriterNickname":"밤하늘의펄",
         "boardTitle":"빅뱅 이론",
         "boardContents":"대폭발(빅뱅) 사건은 고밀도 및 온도의 초기 상태에서 어떻게 우주가 팽창했는지 설명하는 물리 이론이다.\n대폭발의 다양한 우주론적 모형은 관측 가능한 우주의 초기 알려진 기간부터 \n이후의 대규모 형태까지의 진화를 설명한다.",
         "boardType":"exclamation",
@@ -23,12 +23,19 @@
         "isBookmarked": false
       },
       {
+        "boardType":"comment",
+        "commentId": 1,
+        "boardWriterId": "hahiho",
+        "boardWriterNickname": "liiliiiilll",
+        "boardContents": "이거는 저도 궁금하네요."
+      },
+      {
+        "boardType":"exclamation",
         "boardId":11,
-        "boardWriter":"minecrafting",
-        "writerNickname":"빛나는별이올세",
+        "boardWriterId":"minecrafting",
+        "boardWriterNickname":"빛나는별이올세",
         "boardTitle":"원반 은하 형성 과정",
         "boardContents":"나선은하와 같은 원반은하의 중요한 특징은 은하가 매우 얇고 빠르게 회전하며, 보통 나선구조를 보여준다는 점이다. 은하의 형성에 관한 주요 도전 과제 중 하나는 근처 우주에서 얇은 원반은하의 수가 굉장히 많다는 점으로, 이 문제는 원반이 매우 부서지기 쉬우며, 다른 은하와의 병합으로 얇은 원반이 빠르게 파괴될 수 있다는 뜻이다.\n\n1962년, 올린 에겐, 도널드 린든-벨, 앨런 샌디지[1]는 거대한 가스 구름이 단일 붕괴하면서 원반은하가 형성되었다는 이론을 발표하였다. 이론에 따르면 구름이 붕괴함으로써 가스는 빠르게 회전하는 원반에 자리잡는다. 하향식(top-down) 형성 시나리오로 알려져 있는 이 이론은 아주 간단하지만 초기 우주에 대한 관측이 은하가 상향식(bottom-up) 성장(작은 천체가 병합을 통해 더 큰 천체를 형성)을 했음을 강력하게 시사하기 때문에 더 이상 폭넓게 받아들여지지 않는다. 작은 원시은하들의 병합을 통해 은하가 형성된다는 이론은 레너드 설과 로버트 진[2]이 처음으로 주장했다.\n\n더 최근의 이론은 상향식 과정에서 암흑물질헤일로의 군집을 포함한다. 우주 초기의 은하들은 근본적으로 대부분이 가스와 암흑물질로 구성되어 있으며, 그래서 별들은 보다 적게 존재하게 된다. 은하가 작은 은하를 흡수하여 물질을 끌어모음으로써 암흑물질은 대부분 은하의 외곽에 머물게 된다. 이는 암흑물질이 오로지 중력을 통해서만 상호작용할 수 있기 때문으로, 그래서 흩어지지 않는다. 그러나 가스는 빠르게 수축하여 최종적으로 매우 얇고 빠르게 회전하는 원반이 될 때까지 더 빠르게 회전한다.",
-        "boardType":"exclamation",
         "bookmarkCount": 45,
         "isBookmarked": false
       }

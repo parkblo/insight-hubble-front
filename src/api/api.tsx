@@ -124,6 +124,34 @@ export async function editPost(data: any, setError: any) {
   return response;
 }
 
+export async function postComment(data: any) {
+  if (data.comment === "") {
+    window.alert("댓글 내용을 입력해주세요.");
+    return;
+  }
+
+  const response = await axios.post("/comment", data).catch((error) => {
+    window.alert("댓글 작성 중 오류가 발생했습니다.");
+  });
+  return response;
+}
+
+export async function editComment(data: any) {
+  const response = await axios.put("/comment", data).catch((error) => {
+    window.alert("댓글 수정 중 오류가 발생했습니다.");
+  });
+  return response;
+}
+
+export async function deleteComment(commentId: number) {
+  const response = await axios
+    .delete(`/comment/${commentId}`)
+    .catch((error) => {
+      window.alert("댓글 삭제 중 오류가 발생했습니다.");
+    });
+  return response;
+}
+
 // 계정 정보 관련 ==========================================================================================================
 export async function signIn(data: any, setError: any) {
   const response = await axios.post("/login", data).catch((error) => {
