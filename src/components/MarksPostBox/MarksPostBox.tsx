@@ -3,10 +3,10 @@ import { Box, Typography } from "@mui/material";
 import PostItem from "components/PostItem/PostItem";
 import styles from "./MarksPostBoxStyles";
 
-function MarksPostBox() {
+function MarksPostBox({ postObject }: { postObject: any }) {
   return (
     <Box sx={styles.container}>
-      <PostItem />
+      <PostItem postObject={postObject} />
     </Box>
   );
 }

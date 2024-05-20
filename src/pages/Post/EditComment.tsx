@@ -76,10 +76,7 @@ function EditComment() {
       commentId: form.comment_id,
       content: form.content,
     };
-    editComment(data).then(() => {
-      window.alert("댓글을 수정했습니다.");
-      navigate(-1);
-    });
+    editComment(data, navigate);
   };
 
   return (

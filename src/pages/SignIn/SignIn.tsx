@@ -1,5 +1,4 @@
 import React, { useContext, useState } from "react";
-import axios from "axios";
 
 import { Box, Typography } from "@mui/material";
 import Alert from "@mui/material/Alert";
@@ -46,22 +45,9 @@ function SignUp() {
       password: form.password,
     };
 
-    // TODO : 테스트 후 삭제 ========
     console.log(data);
-    const oneHourLater = new Date().getTime() + 58 * 60 * 1000; // 58분 후 만료
 
-    window.localStorage.setItem("auth", "true");
-    window.localStorage.setItem("token", "123");
-    window.localStorage.setItem("exp", oneHourLater.toString());
-    window.localStorage.setItem("username", form.id);
-
-    setAuth(true);
-    // ==============================
-
-    signIn(data, setError).then(() => {
-      setAuth(true);
-      navigate("/");
-    });
+    await signIn(data, setError, setAuth, navigate);
   };
 
   return (

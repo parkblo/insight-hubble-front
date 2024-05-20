@@ -24,8 +24,11 @@ function PostExclamation(postObject: any) {
   const handleClick = () => {
     navigate("/post", {
       state: {
-        source: postObject.item.title,
-        boardParentId: postObject.item.boardParentId,
+        source: postObject.item.boardTitle,
+        boardParentId: postObject.item.boardId,
+        category: "exclamation",
+        editMode: false,
+        childMode: true,
       },
     }); // TODO: 상태 전달 수정
   };

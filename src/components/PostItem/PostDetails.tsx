@@ -18,7 +18,7 @@ function PostDetails(postObject: any) {
       <PostHeader item={postObject.item} />
       <Box sx={styles.details}>
         <Typography sx={styles.details.date}>
-          {formatDate(postObject.item.created_at)}
+          {formatDate(postObject.item.createAt)}
         </Typography>
         <Typography sx={styles.details.title}>
           {postObject.item.boardTitle}
@@ -26,7 +26,7 @@ function PostDetails(postObject: any) {
         <Typography sx={styles.details.content}>
           {postObject.item.boardContents}
         </Typography>
-        {postObject.item.boardInsight ? (
+        {postObject.item.boardParentId !== -1 ? (
           <Typography sx={styles.details.insight}>
             {"글의 영감: "}
             <Link
@@ -37,7 +37,12 @@ function PostDetails(postObject: any) {
             </Link>
           </Typography>
         ) : (
-          <></>
+          <Typography sx={styles.details.insight}>
+            {"글의 영감: "}
+            {postObject.item.boardInsight !== null
+              ? postObject.item.boardInsight
+              : "없음"}
+          </Typography>
         )}
       </Box>
       <PostChildren item={postObject.item} />

@@ -45,7 +45,7 @@ function App() {
       }
     };
 
-    setInterval(checkAuthExp, 1000 * 60); // 1분마다 체크
+    // setInterval(checkAuthExp, 1000 * 60); // 1분마다 체크
   }, []);
 
   return (

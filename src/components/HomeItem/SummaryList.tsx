@@ -6,13 +6,7 @@ import QuestionMarkIcon from "@mui/icons-material/QuestionMark";
 
 import styles from "./HomeItemStyles";
 
-function SummaryList() {
-  const dummyProfileData = {
-    total_questions: 111,
-    total_completed_question: 22,
-    total_uncompleted_question: 33,
-  };
-
+function SummaryList(info: any) {
   return (
     <Box>
       <Grid container>
@@ -24,7 +18,7 @@ function SummaryList() {
             <Box>
               <Typography sx={styles.summary.itemText}>
                 최근 한달간 게시글<br></br>
-                {dummyProfileData.total_questions}개 작성
+                {info.info.monthlyBoards}개 작성
               </Typography>
             </Box>
           </Paper>
@@ -37,7 +31,7 @@ function SummaryList() {
             <Box>
               <Typography sx={styles.summary.itemText}>
                 내가 해결한 물음표<br></br>
-                {dummyProfileData.total_completed_question}개
+                {info.info.solvedQuestion}개
               </Typography>
             </Box>
           </Paper>
@@ -50,7 +44,7 @@ function SummaryList() {
             <Box>
               <Typography sx={styles.summary.itemText}>
                 해결을 기다리는<br></br>나의 물음표는{" "}
-                {dummyProfileData.total_uncompleted_question}개
+                {info.info.unsolvedQuestion}개
               </Typography>
             </Box>
           </Paper>

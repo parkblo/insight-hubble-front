@@ -10,6 +10,7 @@ import { menus } from "constants/menus";
 import SidebarItem from "./SidebarItem";
 import { Typography } from "@mui/material";
 import { AuthContext } from "context/AuthContext";
+import { signOut } from "api/api";
 
 export default function Sidebar() {
   const pathName = useLocation().pathname;
@@ -19,6 +20,8 @@ export default function Sidebar() {
   React.useEffect(() => {
     if (window.localStorage.getItem("auth") === "true") {
       setAuth(true);
+    } else {
+      setAuth(false);
     }
   });
 
@@ -42,6 +45,7 @@ export default function Sidebar() {
                 window.localStorage.clear();
                 window.localStorage.setItem("auth", "false");
                 setAuth(false);
+                signOut();
               }}
               sx={{ cursor: "pointer", color: "blue" }}
             >

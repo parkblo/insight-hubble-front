@@ -38,14 +38,11 @@ function PostComment(postObject: any) {
 
   const handleSubmit = () => {
     const data = {
-      boardId: postObject.postObject.boardId,
+      boardId: postObject.item.boardId,
       content: comment,
     };
 
-    postComment(data).then((response) => {
-      window.alert("댓글이 등록되었습니다.");
-      window.location.reload();
-    });
+    postComment(data);
   };
 
   return (
