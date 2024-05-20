@@ -42,10 +42,10 @@ export default function Sidebar() {
           {auth ? (
             <Box
               onClick={() => {
+                signOut();
                 window.localStorage.clear();
                 window.localStorage.setItem("auth", "false");
                 setAuth(false);
-                signOut();
               }}
               sx={{ cursor: "pointer", color: "blue" }}
             >
