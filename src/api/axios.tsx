@@ -7,8 +7,10 @@ export const axios = Axios.create({
 axios.interceptors.request.use(
   (config) => {
     if (window.localStorage.getItem("auth") === "true") {
-      const userToken = window.localStorage.getItem("accessToken");
-      config.headers["access"] = `${userToken}`;
+      const userAccessToken = window.localStorage.getItem("accessToken");
+      const userRefreshToken = window.localStorage.getItem("refreshToken");
+      config.headers["access"] = `${userAccessToken}`;
+      config.headers["refresh"] = `${userRefreshToken}`;
     }
 
     // ngrok 사용시 브라우저 경고 무시
@@ -35,7 +37,9 @@ axios.interceptors.response.use(
         .post("/reissue")
         .then((res) => {
           window.localStorage.setItem("accessToken", res.headers.access);
+          window.localStorage.setItem("refreshToken", res.headers.refresh);
           error.config.headers["access"] = res.headers.access;
+          error.config.headers["refresh"] = res.headers.refresh;
           return axios(error.config);
         })
         .catch((err) => {

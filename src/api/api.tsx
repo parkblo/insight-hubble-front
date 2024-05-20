@@ -231,6 +231,7 @@ export async function signIn(
 
       window.localStorage.setItem("auth", "true");
       window.localStorage.setItem("accessToken", res.headers.access);
+      window.localStorage.setItem("refreshToken", res.headers.refresh);
       window.localStorage.setItem("exp", oneHourLater.toString());
       window.localStorage.setItem("username", data.username);
 
