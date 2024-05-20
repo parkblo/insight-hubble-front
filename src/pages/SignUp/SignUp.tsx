@@ -62,14 +62,12 @@ function SignUp() {
       username: form.id,
       password: form.password,
       name: form.username,
+      email: "test@sju.ac.kr",
     };
 
     console.log(data); //test
 
-    signUp(data, setError).then(() => {
-      alert("회원가입을 성공했습니다!");
-      navigate("/login");
-    });
+    await signUp(data, setError, navigate);
   };
 
   return (

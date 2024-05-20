@@ -17,7 +17,7 @@ const nonstyle = {
   textDecoration: "none",
 };
 
-function RemindList() {
+function RemindList(info: any) {
   const dummywithin30days = [
     {
       post_id: 1,
@@ -48,23 +48,31 @@ function RemindList() {
     },
   ];
 
+  React.useEffect(() => {
+    console.log(info.info);
+  }, []);
+
   return (
     <Box>
       <Typography sx={styles.remind.dateText}>최근 한 달 이내</Typography>
-      {dummywithin30days.map((item: any) => (
-        <Link to={`/view/${item.post_id}`} style={nonstyle}>
-          <Box key={item.post_id} sx={styles.remind.itemContainer}>
-            {item.post_title}
-          </Box>
-        </Link>
-      ))}
+      {info.info.boardsWithin30Days !== undefined &&
+        info.info.boardsWithin30Days.map((item: any) => (
+          <Link to={`/view/${item.boardId}`} style={nonstyle}>
+            <Box key={item.boardId} sx={styles.remind.itemContainer}>
+              {item.boardTitle}
+            </Box>
+          </Link>
+        ))}
       <Box sx={{ height: "20px" }}></Box>
       <Typography sx={styles.remind.dateText}>한 달보다 오래된</Typography>
-      {dummyover30days.map((item: any) => (
-        <Box key={item.post_id} sx={styles.remind.itemContainer}>
-          {item.post_title}
-        </Box>
-      ))}
+      {info.info.boardsMoreThan30DaysAgo !== undefined &&
+        info.info.boardsMoreThan30DaysAgo.map((item: any) => (
+          <Link to={`/view/${item.boardId}`} style={nonstyle}>
+            <Box key={item.boardId} sx={styles.remind.itemContainer}>
+              {item.boardTitle}
+            </Box>
+          </Link>
+        ))}
     </Box>
   );
 }

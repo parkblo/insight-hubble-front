@@ -32,9 +32,9 @@ function Post() {
     message: "",
   });
   const [editMode, setEditMode] = useState(false);
+  const [childMode, setChildMode] = useState(false);
   let navigate = useNavigate();
   const { state } = useLocation();
-  console.log(state);
 
   useEffect(() => {
     if (window.localStorage.getItem("auth") === "false") {
@@ -56,12 +56,17 @@ function Post() {
         source: state.source,
         boardParentId: state.boardParentId,
       }));
+      setEditMode(state.editMode);
+      setChildMode(state.childMode);
     }
   }, [state]);
 
   const handleChange = (e: any) => {
     const { name, value } = e.target;
     if (name === "source" && form.boardParentId !== -1) {
+      return;
+    }
+    if (name === "category" && childMode === true) {
       return;
     }
     setForm({
@@ -105,7 +110,7 @@ function Post() {
     }
 
     const data = {
-      post_id: form.post_id,
+      boardId: form.post_id,
       boardType: form.category,
       boardSecure: form.isVisible,
       boardTitle: form.title,
@@ -114,18 +119,14 @@ function Post() {
       boardParentId: form.boardParentId,
     };
 
-    console.log(data); // test
-
     if (!editMode) {
       // 초기 게시글 작성일 경우
-      postPost(data, setError).then(() => {
-        navigate(`/mymark/${form.category}`);
-      });
+      console.log(data);
+      postPost(data, setError, navigate);
     } else {
       // 수정 모드일 경우
-      editPost(data, setError).then(() => {
-        navigate(`/mymark/${form.category}`);
-      });
+      console.log(data);
+      editPost(data, setError, navigate);
     }
   };
 

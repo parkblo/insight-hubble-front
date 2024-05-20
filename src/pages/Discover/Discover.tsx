@@ -10,7 +10,7 @@ import PostItem from "components/PostItem/PostItem";
 import { getRecentPost, getSearchPost } from "api/api";
 
 function Discover() {
-  const [data, setData] = React.useState({ state: "", data: {} }); //TODO: 데이터 변경
+  const [data, setData] = React.useState({ state: "", content: [] }); //TODO: 데이터 변경
   const [searchString, setSearchString] = React.useState("");
 
   const handleChange = (e: any) => {
@@ -20,19 +20,17 @@ function Discover() {
   const handleSubmit = async (e: any) => {
     const response = await getSearchPost(searchString);
     if (response) {
-      setData({ state: "검색 결과", data: response.data });
+      setData({ state: "검색 결과", content: response.data.boardList.content });
     }
   };
 
   React.useEffect(() => {
     async function fetchRecentPost() {
-      const response = await getRecentPost();
-      if (response) {
-        setData({ state: "최근 게시글", data: response.data });
-      }
+      await getRecentPost(setData);
     }
 
     fetchRecentPost();
+    console.log(data);
   }, []);
 
   return (
@@ -48,7 +46,7 @@ function Discover() {
         </Grid>
       </Grid>
       <CategoryTitle title={data.state} />
-      <PostItem />
+      <PostItem postObject={data.content} />
     </Box>
   );
 }

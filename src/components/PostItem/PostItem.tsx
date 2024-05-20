@@ -11,11 +11,15 @@ function PostItem(postObject: any) {
     textDecoration: "none",
   };
 
+  React.useEffect(() => {
+    console.log(postObject);
+  }, [postObject]);
+
   return (
     // TO DO: postObject props에 실제 데이터 받아오기.
 
     <Box>
-      {dummy.map((item: any) => (
+      {postObject.postObject.map((item: any) => (
         <Box sx={styles.container}>
           <PostHeader item={item} />
           <Link
@@ -28,7 +32,9 @@ function PostItem(postObject: any) {
                 {item.boardTitle}
               </Typography>
               <Typography sx={styles.postBox.content}>
-                {item.boardContents}
+                {item.boardType === "comment"
+                  ? item.content
+                  : item.boardContents}
               </Typography>
             </Box>
           </Link>

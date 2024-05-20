@@ -4,8 +4,16 @@ import MenuTitle from "components/MenuTitle/MenuTitle";
 import MarksSidebar from "components/MarksSidebar/MarksSidebar";
 import MarksPostBox from "components/MarksPostBox/MarksPostBox";
 import styles from "./MyMarkStyles";
+import React from "react";
+import { getMyPage } from "api/api";
 
 function MyMarkQuestion() {
+  const [data, setData] = React.useState([]);
+
+  React.useEffect(() => {
+    getMyPage("questions", setData);
+  }, []);
+
   return (
     <Box>
       <MenuTitle title="My Marks" />
@@ -14,7 +22,7 @@ function MyMarkQuestion() {
           <MarksSidebar />
         </Box>
         <Box>
-          <MarksPostBox />
+          <MarksPostBox postObject={data} />
         </Box>
       </Box>
     </Box>
