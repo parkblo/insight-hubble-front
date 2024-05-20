@@ -294,14 +294,22 @@ export async function signUp(data: any, setError: any, navigate: any) {
 }
 
 export async function signOut() {
+  const userRefreshToken = window.localStorage.getItem("refreshToken");
+  console.log(userRefreshToken); //test
+
   await axios
-    .post("/logout")
+    .post("/logout", {}, {
+      headers: {
+        "refresh": userRefreshToken,
+      },
+    })
     .then(() => {
       window.alert("로그아웃 되었습니다.");
     })
     .catch((error) => {
       window.alert("로그아웃 중 오류가 발생했습니다.");
       console.log(error);
+      console.log(error.config);
     });
 }
 
